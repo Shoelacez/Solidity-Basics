@@ -1,0 +1,166 @@
+// SPDX-License-Identifier: GPL-3.0
+
+pragma solidity ^0.8.0;
+
+contract Game{
+    mapping (address=>Player) public players;
+    uint public playerCount=0;
+
+    enum Level{
+        Novice,
+        Intermediate,
+        Pro
+    }
+
+    struct Player{
+        address playerAddress;
+        Level playerLevel;
+        string firstName;
+        string lastName;
+
+    }
+
+    function addPlayer(string memory _firstName,string memory _lastName) public
+    {
+        players[msg.sender]=Player(msg.sender,Level.Pro,_firstName,_lastName);
+        playerCount++;
+    }
+
+    function getPlayerLevel(address playerAddress) public view returns (Level)
+    {
+        return players[playerAddress].playerLevel;
+    }
+}
+
+// CONTRACT 4
+// contract functionModifiers{
+//     //variables
+//     address public minter;
+//     mapping (address=>uint) public balances;
+
+//     event Sent(address from,address to, uint amount);
+
+//     modifier onlyMinter{
+//         require(msg.sender==minter,"Only the minter can call this function");
+//         _;
+//     }
+
+//     modifier amountGreaterThan(uint _amount)
+//     {
+//         require(_amount<1e60);
+//         _;
+//     }
+
+//     modifier balanceGreaterThanAmount(uint _amount)
+//     {
+//         require(_amount<=balances[msg.sender],"Insufficient Balance");
+//         _;
+//     }
+
+//     //constructors
+//     constructor(){
+//         minter=msg.sender;
+//     }
+
+//     //functions
+//     function mint(address receiver,uint amount) public onlyMinter amountGreaterThan(amount)
+//     {
+//         //require is a convenience function
+//         balances[receiver]+=amount;
+//     }
+
+//     function send(address receiver, uint _amount) public balanceGreaterThanAmount(_amount)
+//     {
+//         //You cant send more than what you have
+//         //sender's account goes down
+//         balances[msg.sender]-=_amount;
+//         //receiver's account goes up
+//         balances[receiver]+=_amount;
+
+//         //triggering the event
+//         emit Sent(msg.sender,receiver,_amount);
+//     }
+// }
+
+
+//CONTRACT 3
+// contract myContract{
+//     uint public myUint=1;
+//     int public constant myInt=-1;
+//     string public myString="MyString";
+//     bool public myBool=false;
+//     uint public playerCount=0;
+//     mapping (address=>uint) public players;
+
+//     enum Level{ Novice, Intermediate, Advanced}
+
+//     struct Player{
+//         address playerAddress;
+//         Level playerLevel;
+//         string firstName;
+//         string lastName;
+//     }
+
+
+//     function addPlayer(string memory _firstName, string memory _lastName) public 
+//     {
+//         players[msg.sender]=Player(msg.sender,Level.Novice,_firstName,_lastName);
+//         playerCount++;
+//     }
+
+
+// }
+
+
+//CONTRACT 2
+// contract Simplecoin{
+//     //variables
+//     address public minter;
+//     mapping (address=>uint) public balances;
+
+//     event Sent(address from,address to, uint amount);
+
+//     //constructors
+//     constructor(){
+//         minter=msg.sender;
+//     }
+
+//     //functions
+//     function mint(address receiver,uint amount) public 
+//     {
+//         //require is a convenience function
+//         require(msg.sender==minter,"that is not the minter");
+//         require(amount<1e60);
+
+//         balances[receiver]+=amount;
+//     }
+
+//     function send(address receiver, uint _amount) public
+//     {
+//         //You cant send more than what you have
+//         require(_amount<=balances[msg.sender],"Insufficient Balance");
+//         //sender's account goes down
+//         balances[msg.sender]-=_amount;
+//         //receiver's account goes up
+//         balances[receiver]+=_amount;
+
+//         //triggering the event
+//         emit Sent(msg.sender,receiver,_amount);
+//     }
+// }
+
+
+//CONTRACT 1
+// contract Storage{
+//     uint public storedData;
+
+//     function set(uint x) public
+//     {
+//         storedData=x;
+//     }
+
+//     function get() public view returns (uint)
+//     {
+//         return storedData;
+//     }
+// }
